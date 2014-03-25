@@ -1,3 +1,3 @@
-10|kaherson@yahoo.com|crusher|15|1|SCS Regionals|May 10, 2014|6|8|26|28|Kara
-11|connorjherson@yahoo.com|boeing|10|1|SCS Regionals|May 10, 2014|4|5|24|26|Connor
-12|joe@yahoo.com|pwd|12|2|SCS Regionals| May 10, 2014|5|7|25|27|Joe
+10|kaherson@yahoo.com|crusher|15|1|SCS Regionals|May 10, 2014|6|8|15|17|Kara
+11|connorjherson@yahoo.com|boeing|10|1|SCS Regionals|May 10, 2014|4|5|13|15|Connor
+12|joe@yahoo.com|pwd|12|2|SCS Regionals| May 10, 2014|5|7|14|16|Joe

@@ -97,3 +97,8 @@ exports.WorkoutSchedule = WorkoutSchedule = sequelize.define('workoutschedule',{
     scheduleStartDate: Sequelize.DATE,
     coachNotes: Sequelize.TEXT
 })
+
+exports.RouteGrade = RouteGrade = sequelize.define('routegrade', {
+  gradeNumber: Sequelize.INTEGER,
+  gradeString: Sequelize.STRING
+})

@@ -18,12 +18,13 @@ db.authenticate().complete(function(err) {
     } else {
       console.log('Connection has been established successfully in seed.js')
 // not checking for existence of record
-       getAthletes();
+     //  getAthletes();
 // not checking for existence of record
-       getCoaches();
-       getExercises();
-       getTeams();
-       getWorkouts();
+      // getCoaches();
+       //getExercises();
+       //getTeams();
+       //getWorkouts();
+       getRouteGrades();
     }
   });
 
@@ -157,6 +158,28 @@ fs.readFileSync('./seedData/Athletes.txt').toString().split('\n').forEach(functi
       })
   });
 }
+
+
+function getRouteGrades(){
+  fs.readFileSync('./seedData/RouteGrades.txt').toString().split('\n').forEach(function (line) { 
+    splitline = line.split("|");  
+    console.log(splitline[0],splitline[1]);
+    model.RouteGrade
+     .create({
+      gradeNumber: parseInt(splitline[0]),
+      gradeString: splitline[1]
+     })
+
+   .complete(function(err) {
+      if (!!err) {
+        console.log('The  '+splitline[1]+' instance has not been saved:', err)
+      } else {
+        console.log('We have a persisted  '+splitline[1]+' instance now')
+      }
+    })
+ });
+}
+
 
 function findThatAthlete(uname){
   db
