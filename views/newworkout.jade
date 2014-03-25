@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    h1= title
+    form#formAddWorkout(name="addworkout",method="post",action="/addworkout")
+        input#inputWorkoutId(type="integer", placeholder="Id", name="workoutid")
+        input#inputWorkoutName(type="text", placeholder="Name", name="workoutname")
+        input#inputWorkoutTheme(type="text", placeholder="Theme", name="workouttheme")
+        input#inputWorkoutDescription(type="text",placeholder="Description", name="workoutdescription")
+        input#inputWorkoutExercises(type="text",placeholder="Exercises -- # comma separated", name="workoutexercises")
+        input#inputExerciseReps(type="text",placeholder="Reps-- # comma separated", name="exercisereps")
+        input#inputTargetTime(type="integer", placeholder="Time in minutes","name=targettime")
+        button#btnSubmit(type="submit") submit

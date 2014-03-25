@@ -44,6 +44,9 @@ console.log("after see workouts");
 
 app.get('/userlist', routes.userlist);
 
+app.get('/newworkout', routes.newworkout);
+app.post('/addworkout', routes.addworkout);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

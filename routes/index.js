@@ -22,7 +22,6 @@ exports.userlist = function(req, res) {
               model.Coach
                 .findAll()
                 .complete(function(err,coaches){
-                  console.log(coaches);
                   res.render('userlist', {
                     "userlist" : coaches
                   })
@@ -96,6 +95,71 @@ exports.see_workouts = function(req, res) {
 
     
   };
+
+exports.newworkout = function(req, res) {
+    res.render('newworkout', { title: 'Add New Workout'});
+  };
+
+exports.addworkout = function(req,res) {
+
+      // Get our form values. These rely on the "name" attributes
+      var workoutId = req.body.workoutid;
+      var createdBy = 1;   // TODO: use currently logged in coach
+      var workoutName = req.body.workoutname;
+      var workoutTheme = req.body.workouttheme;  // should have dropdown choice of existing themes
+      var workoutDescription = req.body.workoutdescription; 
+      var workoutExercises = req.body.workoutexercises; //can't be freeform, need dropdown list of existing exercises
+      var exerciseReps = req.body.exercisereps; //ditto
+      var targetTime = req.body.targettime;
+
+ //TODO  Major error cheking!!!
+//Immediate -- there is a bug in exerciseReps
+      console.log(workoutId, createdBy, workoutName, workoutTheme, 
+        workoutDescription,workoutExercises,exerciseReps, targetTime);
+
+      model.Workout
+        .create ({
+          workoutId: workoutId,
+          createdBy: createdBy,
+          workoutName: workoutName,
+          workoutTheme: workoutTheme,
+          workoutDescription: workoutDescription,
+          workoutExercises: workoutExercises,
+          exerciseReps: exerciseReps,
+          targetTime: targetTime
+        })
+        .complete(function(err) {
+          if (!!err) {
+            console.log('That big old mess failed to save!', err)
+          }
+          else {
+            console.log('Did we just put junk in the database?')
+            res.location("userlist");
+            res.redirect("userlist");
+          }
+        })
+
+ };
+      // Set our collection
+      // var collection = db.get('usercollection');
+
+      // // Submit to the DB
+      // collection.insert({
+      //     "username" : userName,
+      //     "email" : userEmail
+      // }, function (err, doc) {
+      //     if (err) {
+      //         // If it failed, return error
+      //         res.send("There was a problem adding the information to the database.");
+      //     }
+      //     else {
+      //         // If it worked, set the header so the address bar doesn't still say /adduser
+      //         res.location("userlist");
+      //         // And forward to success page
+      //         res.redirect("userlist");
+      //     }
+      // });
+
 
 
 // exports.add_mail = function(req, res) {
