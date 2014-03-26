@@ -2,8 +2,12 @@
 if (process.env.HEROKU_POSTGRESQL_CYAN_URL) {
     // the application is executed on Heroku .. use the postgres database
     var match = process.env.HEROKU_POSTGRESQL_CYAN_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-    console.log(match);
- 
+    console.log('match ', match[1]);
+    console.log('match ', match[2]);
+    console.log('match ', match[3]);
+    console.log('match ', match[4]);
+    console.log('match ', match[5]);
+
     sequelize = new Sequelize(match[5], match[1], match[2], {
       dialect:  'postgres',
       protocol: 'postgres',
