@@ -1,4 +1,6 @@
 
+var Sequelize = require('sequelize')
+
 if (process.env.HEROKU_POSTGRESQL_CYAN_URL) {
     // the application is executed on Heroku .. use the postgres database
     var match = process.env.HEROKU_POSTGRESQL_CYAN_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
@@ -26,8 +28,7 @@ else {
   var db_dialect = process.env.EXPRESSTRAINER_DB_DIALECT;
 
 
-  var Sequelize = require('sequelize')
-  , sequelize = new Sequelize(app_db, app_user, app_pwd, {
+  sequelize = new Sequelize(app_db, app_user, app_pwd, {
        dialect: db_dialect, // or 'sqlite', 'postgres', 'mariadb'
        port:    db_port, // or 5432 (for postgres)
        host: db_host
