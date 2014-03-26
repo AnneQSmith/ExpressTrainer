@@ -18,13 +18,13 @@ db.authenticate().complete(function(err) {
     } else {
       console.log('Connection has been established successfully in seed.js')
 // not checking for existence of record
-     //  getAthletes();
+       getAthletes();
 // not checking for existence of record
-      // getCoaches();
-       //getExercises();
-       //getTeams();
-       //getWorkouts();
-       getRouteGrades();
+       getCoaches();
+       getExercises();
+       getTeams();
+       getWorkouts();
+      // getRouteGrades();
     }
   });
 
