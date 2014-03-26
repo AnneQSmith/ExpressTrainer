@@ -1,9 +1,24 @@
+var app_db = process.env.EXPRESSTRAINER_DB_NAME;
+var app_user = process.env.EXPRESSTRAINER_DB_USER;
+var app_pwd = process.env.EXPRESSTRAINER_DB_PWD;
+var db_port = process.env.EXPRESSTRAINER_DB_PORT;
+var db_host = process.env.EXPRESSTRAINER_DB_HOST;
+var db_dialect = process.env.EXPRESSTRAINER_DB_DIALECT;
+
+
 var Sequelize = require('sequelize')
-  , sequelize = new Sequelize('pgtest', 'demorole1', 'password1', {
-       dialect: "postgres", // or 'sqlite', 'postgres', 'mariadb'
-       port:    5432, // or 5432 (for postgres)
-       host: 'localhost'
+  , sequelize = new Sequelize(app_db, app_user, app_pwd, {
+       dialect: db_dialect, // or 'sqlite', 'postgres', 'mariadb'
+       port:    db_port, // or 5432 (for postgres)
+       host: db_host
     })
+
+// var Sequelize = require('sequelize')
+//   , sequelize = new Sequelize('pgtest', 'demorole1', 'password1', {
+//        dialect: "postgres", // or 'sqlite', 'postgres', 'mariadb'
+//        port:    5432, // or 5432 (for postgres)
+//        host: 'localhost'
+//     })
 
 
 exports.syncUp = syncUp = function syncUp(){

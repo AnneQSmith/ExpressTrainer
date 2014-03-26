@@ -1,24 +1,36 @@
 {
   "name": "expresstrainer",
   "version": "0.0.0",
-  "description": "CreatingDBfor Pocket Trainer",
-  "main": "index.js",
+  "description": "V0.1 of Hackbright node project",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~3.4.8",
+    "jade": "~1.3.0",
+    "pg": "~2.11.1",
+    "sequelize": "~1.7.0",
+    "underscore": "~1.6.0",
+    "node-mailer": "~0.1.1",
+    "sqlite3": "~2.2.0",
+    "nodemailer": "~0.6.1"
+  },
+  "devDependencies": {},
   "scripts": {
-    "test": "testme"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "anneqsmith"
+    "url": "https://github.com/AnneQSmith/ExpressTrainer.git"
   },
   "keywords": [
     "learn",
-    "faster"
+    "node",
+    "learn",
+    "postgres"
   ],
-  "author": "anne smith",
+  "author": "Anne Smit",
   "license": "ISC",
-  "dependencies": {
-    "sequelize": "^1.7.0",
-    "sqlite3": "^2.2.0",
-    "pg": "^2.11.1"
-  }
+  "bugs": {
+    "url": "https://github.com/AnneQSmith/ExpressTrainer/issues"
+  },
+  "homepage": "https://github.com/AnneQSmith/ExpressTrainer"
 }

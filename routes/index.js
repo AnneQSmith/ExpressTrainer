@@ -62,19 +62,27 @@ exports.add_mail = function(req, res) {
                   model.Coach
                     .find({ where: {coachId: team.teamId} })
                     .complete(function(err, coach){
-                    console.log('Hello ' + coach.spokenName + '!');
-                    res.render('athlete_page', {title: 'Express'
-                                                ,current_athlete: athlete.spokenName
-                                                ,athleteId: athlete.athleteId
-                                                ,tn: team.teamName
-                                                ,cn: coach.spokenName
-                                                ,goal: athlete.goal
-                                                ,gd: athlete.goalDate.toDateString()
-                                                ,bp: athlete.boulderPar
-                                                ,bb: athlete.boulderBest
-                                                ,sp: athlete.routePar
-                                                ,sb: athlete.routeBest});                
-                          
+                      model.RouteGrade
+                        .find( { where: {gradeNumber: athlete.routePar}})
+                        .complete(function(err,routegradeP){
+                        model.RouteGrade
+                        .find( { where: {gradeNumber: athlete.routeBest}})
+                        .complete(function(err,routegradeB){
+
+                        res.render('athlete_page', {title: 'Express'
+                                                    ,current_athlete: athlete.spokenName
+                                                    ,athleteId: athlete.athleteId
+                                                    ,tn: team.teamName
+                                                    ,cn: coach.spokenName
+                                                    ,goal: athlete.goal
+                                                    ,gd: athlete.goalDate.toDateString()
+                                                    ,bp: athlete.boulderPar
+                                                    ,bb: athlete.boulderBest
+                                                    ,sp: routegradeP.gradeString
+                                                    ,sb: routegradeB.gradeString});    
+                                                    }) 
+                          })           
+                              
                       })
                    })
               }
@@ -140,34 +148,10 @@ exports.addworkout = function(req,res) {
         })
 
  };
-      // Set our collection
-      // var collection = db.get('usercollection');
-
-      // // Submit to the DB
-      // collection.insert({
-      //     "username" : userName,
-      //     "email" : userEmail
-      // }, function (err, doc) {
-      //     if (err) {
-      //         // If it failed, return error
-      //         res.send("There was a problem adding the information to the database.");
-      //     }
-      //     else {
-      //         // If it worked, set the header so the address bar doesn't still say /adduser
-      //         res.location("userlist");
-      //         // And forward to success page
-      //         res.redirect("userlist");
-      //     }
-      // });
 
 
 
-// exports.add_mail = function(req, res) {
-//     console.log('in add_mail');
-//   var email = (req.body.email).substr(0,256);
-//     console.log ('email enterd = '+email);
-//     db = model.sequelize;
-// //    findThatAthlete('kaherson@yahoo.com');
+//   findThatAthlete('kaherson@yahoo.com');
 //     uname = email;
 //     db
 //       .authenticate()
