@@ -8,8 +8,54 @@ exports.index = function(req, res){
   console.log('in index')
 };
 
+exports.coachindex = function(req,res){
+  res.render('coachindex', { title: 'Coach'});
+  console.log('in coach index')
+}
 
 
+
+
+exports.add_coachmail = function(req, res) {
+  var email = (req.body.email).substr(0,256);
+    console.log ('email enterd = '+email);
+    db = model.sequelize;
+    uname = email;
+    db
+      .authenticate()
+      .complete(function(err) {
+         if (!!err) {
+           console.log('An error occurred while authenticating:', err)
+         } else {         
+           model.Coach
+            .find({ where: { username: uname} })
+            .complete(function(err, coach) {
+              if (!!err) {
+                console.log('An error occurred while searching for uname:', err);
+                res.render('index', { title: 'Coach'});
+              } else if (!Coach) {
+                console.log('No coach with the username ' + uname + ' has been found.');
+                res.render('coachindex', { title: 'Coach' });
+              } else {
+                model.Team
+ //bad bug -- doesn't handle the case of more than one team
+
+                 .find({ where: {coachId: coach.coachId} })
+                 .complete (function(err,team) {
+                  model.Athlete
+                  .findAll({ where: {teamId: team.teamId } })
+                  .complete (function(err,athletes) {
+                    res.render('coach_page', {title: 'Coach'
+                                            ,coachname: coach.spokenName
+                                            ,athletes: athletes});
+
+                    })
+                 })  
+              }
+            })
+         }
+      })
+  };
 
 exports.add_mail = function(req, res) {
 	var email = (req.body.email).substr(0,256);
@@ -124,7 +170,7 @@ exports.newworkout = function(req, res) {
                 }
             })
          };
-    //res.render('newworkout', { title: 'Add New Workout'});
+
 
 
 exports.addworkout = function(req,res) {
