@@ -9,26 +9,6 @@ exports.index = function(req, res){
 };
 
 
-//code to demonstrate looping construct in Jade
-exports.userlist = function(req, res) {
-  console.log('in user list');
-        db
-          .authenticate()
-          .complete(function(err) {
-            if (!!err){
-              console.log('An error occurred while authenticating:', err)
-            } else {  
-              console.log('in userlist');
-              model.Coach
-                .findAll()
-                .complete(function(err,coaches){
-                  res.render('userlist', {
-                    "userlist" : coaches
-                  })
-                })
-            }
-         })
-  };
 
 
 exports.add_mail = function(req, res) {
@@ -104,9 +84,48 @@ exports.see_workouts = function(req, res) {
     
   };
 
-exports.newworkout = function(req, res) {
-    res.render('newworkout', { title: 'Add New Workout'});
+
+//code to demonstrate looping construct in Jade
+exports.userlist = function(req, res) {
+  console.log('in user list');
+        db
+          .authenticate()
+          .complete(function(err) {
+            if (!!err){
+              console.log('An error occurred while authenticating:', err)
+            } else {  
+              console.log('in userlist');
+              model.Coach
+                .findAll()
+                .complete(function(err,coaches){
+                  res.render('userlist', {
+                    "userlist" : coaches
+                  })
+                })
+            }
+         })
   };
+
+
+exports.newworkout = function(req, res) {
+  //get list of existing exercises from db
+    console.log('in new workout');
+        db
+          .authenticate()
+          .complete(function(err) {
+            if (!!err){
+              console.log('An error occurred while authenticating:', err)
+            } else {  
+              model.Exercise
+                .findAll()
+                .complete(function(err,exercises){
+                  res.render('newworkout', {"exerciselist": exercises})
+                  })
+                }
+            })
+         };
+    //res.render('newworkout', { title: 'Add New Workout'});
+
 
 exports.addworkout = function(req,res) {
 
@@ -125,27 +144,27 @@ exports.addworkout = function(req,res) {
       console.log(workoutId, createdBy, workoutName, workoutTheme, 
         workoutDescription,workoutExercises,exerciseReps, targetTime);
 
-      model.Workout
-        .create ({
-          workoutId: workoutId,
-          createdBy: createdBy,
-          workoutName: workoutName,
-          workoutTheme: workoutTheme,
-          workoutDescription: workoutDescription,
-          workoutExercises: workoutExercises,
-          exerciseReps: exerciseReps,
-          targetTime: targetTime
-        })
-        .complete(function(err) {
-          if (!!err) {
-            console.log('That big old mess failed to save!', err)
-          }
-          else {
-            console.log('Did we just put junk in the database?')
-            res.location("userlist");
-            res.redirect("userlist");
-          }
-        })
+      // model.Workout
+      //   .create ({
+      //     workoutId: workoutId,
+      //     createdBy: createdBy,
+      //     workoutName: workoutName,
+      //     workoutTheme: workoutTheme,
+      //     workoutDescription: workoutDescription,
+      //     workoutExercises: workoutExercises,
+      //     exerciseReps: exerciseReps,
+      //     targetTime: targetTime
+      //   })
+      //   .complete(function(err) {
+      //     if (!!err) {
+      //       console.log('That big old mess failed to save!', err)
+      //     }
+      //     else {
+      //       console.log('Did we just put junk in the database?')
+      //       res.location("userlist");
+      //       res.redirect("userlist");
+      //     }
+      //   })
 
  };
 

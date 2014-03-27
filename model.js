@@ -28,6 +28,7 @@ else {
   var db_dialect = process.env.EXPRESSTRAINER_DB_DIALECT;
 
 
+  
   sequelize = new Sequelize(app_db, app_user, app_pwd, {
        dialect: db_dialect, // or 'sqlite', 'postgres', 'mariadb'
        port:    db_port, // or 5432 (for postgres)
