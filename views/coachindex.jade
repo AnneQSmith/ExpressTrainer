@@ -1,0 +1,56 @@
+doctype html
+
+html(lang="en")
+	head
+		meta(http-equiv="Content-Type", content="text/html; charset=UTF-8")
+		meta(charset="utf-8")
+		title pockettrainer: Learn Node.js  
+		meta(name="viewport", content="width=device-width, initial-scale=1.0")
+		meta(name="description", content="")
+		meta(name="author", content="")
+		script(src="http://code.jquery.com/jquery-1.9.1.min.js")
+		link(href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css", rel="stylesheet")
+		script(src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js")
+		link(rel='stylesheet', href='/stylesheets/home.css')
+	body
+		div(class="bg")
+
+		div(class="container-narrow")
+
+			div(class="masthead")
+				ul(class="nav nav-pills pull-right")
+					li(class="active")
+						a(href="/") Home
+				h3(class="muted") pocket trainer
+			hr
+
+			div(class="jumbotron")
+				h2 Coaching your climbing teams just got 21st century.
+				p(class="lead") 
+
+				form(class="form-inline",method='POST',action='/add_coachmail')
+					input(type="text", class="input-small", placeholder="Email", name='email')
+					button(type="submit", class="btn") Login!
+			hr
+
+			div(class="row-fluid marketing")
+				div(class="span6")
+					img(class="thumbnail", src="/images/serenity-connor.jpg")
+				div(class="span6")
+					h4 Manage your teams short and long term training plans!
+					p Track long-range goals as well as near-term workouts.  Assign workouts for athletes even when they can't come to team practice.
+					
+
+					h4 Workout History
+					p What workouts have been assigned in the past and what were the results?
+
+					h4 Track athletes' progress
+					p Modify training plans as you discover which of your devious schemes is the most effective.
+
+
+			hr
+
+			div(class="footer")
+				p © pockettrainer 2014
+
+		
