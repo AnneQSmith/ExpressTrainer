@@ -36,9 +36,15 @@ html(lang="en")
 					h5 AthleteId: #{athleteId}
 
 
-					form(class="form-inline",method='GET',action='/see_workouts')
+					form(name='getworkouts',method='post', action='/see_aworkouts/#{athleteId}')
+
+						label(for="workoutwhen") When? 
+						select(id="workoutwhen", name="workouttime")
+							option(value='today') today
+							option(value='future') future
+							option(value='past') past
 					
-					button(type="submit", class="btn", athlete = '10', action='/see_workouts') See Workouts!
+						button(type="submit",  action='/see_aworkouts/#{athleteId}') See Workouts!
 				
 			hr
 

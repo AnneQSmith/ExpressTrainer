@@ -41,8 +41,13 @@ app.post('/add_coachmail',routes.add_coachmail);
 console.log("we are in app after add_coachmail");
 app.get('/athlete_home',routes.athlete_home);
 console.log("after athlete_home");
-app.get('/see_workouts', routes.see_workouts);
+
+app.get('/see_workouts/:athleteId', routes.see_workouts);
 console.log("after see workouts");
+
+
+app.post('/see_aworkouts/:athleteId', routes.see_aworkouts);
+console.log("after see aworkouts");
 
 app.get('/userlist', routes.userlist);
 

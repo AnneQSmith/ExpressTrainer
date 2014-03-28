@@ -123,13 +123,23 @@ exports.add_mail = function(req, res) {
 // of workouts for a specific athlete can be fetched/displayed
 
 exports.see_workouts = function(req, res) {
-  var athlete = req.body.athlete_id;
-  console.log ('In see_workouts trying to get an id'+ athlete);   
+  var athleteId = req.params.athleteId;
+  console.log (req.params);
+  console.log ('In see_workouts trying to get an id  '+ athleteId);   
     //res.render('workout_page', {title: 'Express', aname: name})
 
     
   };
+exports.see_aworkouts = function(req, res) {
+  var athleteId = req.params.athleteId;
+  console.log (req.body);
+  console.log (req.params);
+  var workouttime = req.body.workouttime;
+  console.log ('In see_aworkouts trying to get an athlete and workout time '+ athleteId + workouttime);   
+ // res.render('workout_page', {title: 'Workouts', aname: 'kaherson@yahoo.com'})
 
+    
+  };
 
 //code to demonstrate looping construct in Jade
 exports.userlist = function(req, res) {
@@ -211,6 +221,7 @@ exports.addworkout = function(req,res) {
       //       res.redirect("userlist");
       //     }
       //   })
+    res.redirect('newworkout');
 
  };
 
