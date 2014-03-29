@@ -122,9 +122,8 @@ exports.WorkoutHistory = WorkoutHistory = sequelize.define('workouthistory',{
 exports.WorkoutSchedule = WorkoutSchedule = sequelize.define('workoutschedule',{
     athleteId: Sequelize.INTEGER,
     teamId: Sequelize.INTEGER,
-    workouts: Sequelize.STRING,
-    workoutDaysFromStart: Sequelize.STRING,
-    scheduleStartDate: Sequelize.DATE,
+    workoutId: Sequelize.INTEGER,
+    scheduledDate: Sequelize.DATE,
     coachNotes: Sequelize.TEXT
 })
 

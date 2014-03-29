@@ -18,24 +18,17 @@ html(lang="en")
 		div(class="container-narrow")
 
 			div(class="masthead")
-				ul(class="nav nav-pills pull-right")
-					li(class="active")
-						a(href="/") Home
-					li
-						a(href="#") Register
+				
 				h3(class="muted") pocket trainer
 			hr
 
 			div(class="jumbotron")
-				h3 Check out your workouts, #{aname}!
-				p(class="lead") Let's get psyched!
+				h3 #{aname}, Check out your workouts
+					each workout,i in workouts
+						h5 #{workout.workoutId}, #{workout.scheduledDate},#{workout.coachNotes}
 
 			hr
 
-			div(class="row-fluid marketing")
-
-				h2 See Workouts!
-				
 			hr
 
 			div(class="footer")

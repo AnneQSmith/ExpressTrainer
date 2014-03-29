@@ -131,12 +131,28 @@ exports.see_workouts = function(req, res) {
     
   };
 exports.see_aworkouts = function(req, res) {
-  var athleteId = req.params.athleteId;
+  var aId = req.params.athleteId;
+  var athleteName = req.params.athleteName;
   console.log (req.body);
   console.log (req.params);
   var workouttime = req.body.workouttime;
-  console.log ('In see_aworkouts trying to get an athlete and workout time '+ athleteId + workouttime);   
- // res.render('workout_page', {title: 'Workouts', aname: 'kaherson@yahoo.com'})
+
+  db.
+    authenticate()
+    .complete(function(err) {
+      if (!!err) {
+        console.log('oops authentication error', err)
+      }
+      else {
+        model.WorkoutSchedule
+          .findAll({ where: { athleteId: aId} })
+          .complete(function(err,workoutschedules){
+              console.log('workout schedules', workoutschedules);
+             res.render('workout_page', {title: 'Workouts', aname: athleteName, workouts: workoutschedules});
+          })
+      }
+    })
+
 
     
   };
