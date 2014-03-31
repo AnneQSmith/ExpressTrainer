@@ -76,7 +76,7 @@ exports.add_mail = function(req, res) {
                 res.render('index', { title: 'Express'});
               } else if (!athlete) {
                 console.log('No user with the username ' + uname + ' has been found.');
-                res.render('index', { title: 'Express' });
+                res.render('index', { title: uname});
               } else {
 
 //TODO add error handling; for prototype implementation ensure dataset is clean 
@@ -95,7 +95,7 @@ exports.add_mail = function(req, res) {
                         .find( { where: {gradeNumber: athlete.routeBest}})
                         .complete(function(err,routegradeB){
 
-                        res.render('athlete_page', {title: 'Express'
+                        res.render('athlete_page', {title: athlete.SpokenName
                                                     ,current_athlete: athlete.spokenName
                                                     ,athleteId: athlete.athleteId
                                                     ,tn: team.teamName
@@ -148,7 +148,12 @@ exports.see_aworkouts = function(req, res) {
           .findAll({ where: { athleteId: aId} })
           .complete(function(err,workoutschedules){
               console.log('workout schedules', workoutschedules);
-             res.render('workout_page', {title: 'Workouts', aname: athleteName, workouts: workoutschedules});
+              var dates = []
+              for (i = 0; i <_.size(workoutschedules);i++){
+                dates.push(workoutschedules[i].scheduledDate.toDateString());
+                console.log(i,dates[i]);
+              }
+             res.render('workout_page', {title: 'Workouts', aname: athleteName, workouts: workoutschedules, wd: dates});
           })
       }
     })
@@ -310,7 +315,7 @@ exports.athlete_home = function(req, res) {
                 console.log('No user with the username ' + uname + ' has been found.')
               } else {
                 console.log('Hello ' + athlete.spokenName + '!');
-                res.render('athlete_page', {title: 'Blech!'});
+                res.render('athlete_page', {title: uname});
                 res.send('Home Page for: ' + athlete.spokenName);
               }
             })

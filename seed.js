@@ -18,18 +18,42 @@ db.authenticate().complete(function(err) {
     } else {
       console.log('Connection has been established successfully in seed.js')
 // not checking for existence of record
-       getAthletes();
-// not checking for existence of record
-       getCoaches();
-       getExercises();
-       getTeams();
-       getWorkouts();
+//        getAthletes();
+// // not checking for existence of record
+//        getCoaches();
+//        getExercises();
+//        getTeams();
+//        getWorkouts();
+       getWorkoutSchedules();
       // getRouteGrades();
     }
   });
 
 
 //For now, functions to test that we can retrieve data.
+
+function getWorkoutSchedules(){
+  fs.readFileSync('./seedData/WorkoutSchedule.txt').toString().split('\n').forEach(function (line) { 
+    splitline = line.split("|");  
+    console.log(splitline);
+    model.WorkoutSchedule
+     .create({
+      athleteId: parseInt(splitline[0]),
+      teamId: parseInt(splitline[1]),
+      workoutId: parseInt(splitline[2]),
+      scheduledDate: new Date(Date.parse(splitline[3])),
+      coachNotes: splitline[4]
+     })
+
+   .complete(function(err) {
+      if (!!err) {
+        console.log('workout not saved', err)
+      } else {
+        console.log('We have a persisted  '+splitline[4]+' instance now')
+      }
+    })
+ });
+}
 
 
 function getCoaches(){

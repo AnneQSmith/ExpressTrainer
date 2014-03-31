@@ -25,7 +25,7 @@ html(lang="en")
 			div(class="jumbotron")
 				h3 #{aname}, Check out your workouts
 					each workout,i in workouts
-						h5 #{workout.workoutId}, #{workout.scheduledDate},#{workout.coachNotes}
+						h6 #{workout.workoutId}, #{wd[i]}: #{workout.coachNotes}
 
 			hr
 
