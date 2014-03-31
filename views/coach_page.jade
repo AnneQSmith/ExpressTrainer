@@ -20,7 +20,7 @@ html(lang="en")
 			div(class="masthead")
 				ul(class="nav nav-pills pull-right")
 					li(class="active")
-						a(href="/Coach") Home				
+						a(href="/Coach") Login Page				
 
 				h3(class="muted") pocket trainer
 
@@ -38,12 +38,15 @@ html(lang="en")
 							li
 								h5 #{athlete.spokenName}
 
+					form(name='getworkouts',method='post', action='/see_workouts')
+						label(for="workoutwho") Who?
+						select(id="workoutwho", name="workoutwho")
+							each athlete,i  in athletes
+								option(value=athlete.athleteId) #{athlete.spokenName}
 
-
-					form(class="form-inline",method='GET',action='/see_workouts')
-					
-					button(type="submit", class="btn", athlete = '10', action='/see_workouts') See Workouts!
+						button(type="submit",  action='/see_workouts') See Workouts!
 				
+			
 			hr
 
 			div(class="footer")

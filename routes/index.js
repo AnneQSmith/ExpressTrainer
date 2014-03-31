@@ -4,7 +4,7 @@ var _ = require('underscore')
 
 
 exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'Pocket Trainer' });
   console.log('in index')
 };
 
@@ -32,8 +32,8 @@ exports.add_coachmail = function(req, res) {
             .complete(function(err, coach) {
               if (!!err) {
                 console.log('An error occurred while searching for uname:', err);
-                res.render('index', { title: 'Coach'});
-              } else if (!Coach) {
+                res.render('coachindex', { title: 'Coach'});
+              } else if (!coach) {
                 console.log('No coach with the username ' + uname + ' has been found.');
                 res.render('coachindex', { title: 'Coach' });
               } else {
@@ -123,10 +123,9 @@ exports.add_mail = function(req, res) {
 // of workouts for a specific athlete can be fetched/displayed
 
 exports.see_workouts = function(req, res) {
-  var athleteId = req.params.athleteId;
-  console.log (req.params);
+  var athleteId = req.body.workoutwho;
   console.log ('In see_workouts trying to get an id  '+ athleteId);   
-    //res.render('workout_page', {title: 'Express', aname: name})
+  res.render('newworkout', {title: 'Workouts'})
 
     
   };
