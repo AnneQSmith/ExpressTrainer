@@ -31,22 +31,34 @@ html(lang="en")
 
 			div(class="row-fluid marketing")
 				div(class="span6")
-					img(class="thumbnail", src="/images/serenity-connor.jpg")
+					h4 Teams:
+					ul
+						each team in teams
+							li(class='active')
+								a(href="/editteamworkouts/#{team.teamId}") #{team.teamName}
+						li(class='active')
+							a(href="/addteam") New Team
+					
 				div(class="span6")
 					h4 Athletes:
+					ul
 						each athlete in athletes 
-							li
-								h5 #{athlete.spokenName}
+							li(class='active')
+								a(href="/editathleteworkouts/#{athlete.athleteId}") #{athlete.spokenName}
+						li(class='active')
+							a(href="/addathlete") New Athlete
 
-					form(name='getworkouts',method='post', action='/see_workouts')
-						label(for="workoutwho") Who?
-						select(id="workoutwho", name="workoutwho")
-							each athlete,i  in athletes
-								option(value=athlete.athleteId) #{athlete.spokenName}
 
-						button(type="submit",  action='/see_workouts') See Workouts!
+				div(class="span6")
 				
-			
+					h4 Workouts:
+					ul
+						each workout in workouts
+							li(class='active')
+								a(href="/editworkout/#{workout.workoutId}") #{workout.workoutName}
+						li(class='active')
+							a(href="/newworkout") Create New Workout
+					
 			hr
 
 			div(class="footer")

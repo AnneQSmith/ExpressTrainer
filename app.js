@@ -55,6 +55,9 @@ app.get('/userlist', routes.userlist);
 app.get('/newworkout', routes.newworkout);
 app.post('/addworkout', routes.addworkout);
 
+app.get('/editworkout/:workoutId', routes.editworkout);
+app.post('/editworkout/:workoutId', routes.editworkout);
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });

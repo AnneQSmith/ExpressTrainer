@@ -13,6 +13,44 @@ exports.coachindex = function(req,res){
   console.log('in coach index')
 }
 
+exports.editworkout = function(req,res){
+
+  var workoutId = req.params.workoutId;
+  console.log('in editworkout, workoutId = ', workoutId);
+  db
+    .authenticate()
+    .complete(function(err) {
+      if (!!err){
+        console.log('authentication error');
+        res.render('coachindex');
+
+      }
+      else {
+        model.Workout
+          .find( {where: {workoutId: workoutId}})
+          .complete(function(err,workout) {
+            if (!!err) {
+              console.log('Error occurred trying to edit workout id = ', workoutId);
+              res.render('coachindex');
+            }
+            else{
+              var elements = workout.workoutExercises.split(',');
+              var reps = workout.exerciseReps.split(',');
+
+              console.log(elements, reps);
+
+              res.render('editworkout', {title: "Edit Workout"
+                                          ,workout: workout
+                                          ,elements: elements
+                                          ,reps: reps})
+            }
+          })
+      }
+
+    })
+
+
+}
 
 
 
@@ -38,16 +76,22 @@ exports.add_coachmail = function(req, res) {
                 res.render('coachindex', { title: 'Coach' });
               } else {
                 model.Team
- //bad bug -- doesn't handle the case of more than one team
+ //bad bug -- doesn't grab team members beyond the first found team.
 
-                 .find({ where: {coachId: coach.coachId} })
-                 .complete (function(err,team) {
+                 .findAll({ where: {coachId: coach.coachId} })
+                 .complete (function(err,teams) {
                   model.Athlete
-                  .findAll({ where: {teamId: team.teamId } })
+                  .findAll({ where: {teamId: teams[0].teamId } })
                   .complete (function(err,athletes) {
-                    res.render('coach_page', {title: 'Coach'
+                    model.Workout
+                    .findAll()
+                    .complete (function(err,workouts){
+                      res.render('coach_page', {title: 'Coach'
                                             ,coachname: coach.spokenName
-                                            ,athletes: athletes});
+                                            ,athletes: athletes
+                                            ,teams: teams
+                                            ,workouts: workouts});
+                      })
 
                     })
                  })  
@@ -125,7 +169,7 @@ exports.add_mail = function(req, res) {
 exports.see_workouts = function(req, res) {
   var athleteId = req.body.workoutwho;
   console.log ('In see_workouts trying to get an id  '+ athleteId);   
-  res.render('newworkout', {title: 'Workouts'})
+  res.redirect('newworkout')
 
     
   };
@@ -195,7 +239,11 @@ exports.newworkout = function(req, res) {
               model.Exercise
                 .findAll()
                 .complete(function(err,exercises){
-                  res.render('newworkout', {"exerciselist": exercises})
+                  model.Workout
+                    .findAll()
+                    .complete(function(err,workouts){
+                      res.render('newworkout', {"exerciselist": exercises, "workoutlist": workouts})                      
+                    })
                   })
                 }
             })

@@ -25,35 +25,36 @@ html(lang="en")
 				h3(class="muted") pocket trainer
 
 			div(class="jumbotron")
-				h3 Make the Magic Happen
+				h3 View or Edit Workouts you've already defined
 
 			hr
 
 			div(class="row-fluid marketing")
 				div(class="span6")
-					h4 Current Workouts:
-						br
-						ul
-							each workout in workoutlist
-								li
-									a(href="/description/#{workout.workoutId}") #{workout.workoutName}
+					h4 #{workout.workoutName}:
+						h5 Theme: #{workout.workoutTheme}
+						h5 Target time: #{workout.targetTime} minutes.
+						h5 Description: 
+						p #{workout.workoutDescription}
 
 				div(class="span6")
+					h4 Elements:
+						
+						each element, i in elements
 
-					h4 Create a New Workout:
+							h6 #{elements[i]};  #{reps[i]} Reps
+
+
+					h4 Edit this Workout:
 					
 					form(name="addworkout",method="post",action="/addworkout")
-						input#inputWorkoutId(type="integer", placeholder="Id", name="workoutid")
-						input#inputWorkoutName(type="text", placeholder="Name", name="workoutname")
-						input#inputWorkoutTheme(type="text", placeholder="Theme", name="workouttheme")
+						input#inputWorkoutName(type="text", placeholder="#{workout.workoutName}", name="workoutname")
+						input#inputWorkoutTheme(type="text", placeholder="#{workout.workoutTheme}", name="workouttheme")
 						input#inputWorkoutDescription(type="text",placeholder="Description", name="workoutdescription")
 						label(for="workoutexercises") Exercise: 
-						select(id="workoutexercises", name="workoutexercises")
-							each exercise in exerciselist
-								option(value=exercise.exerciseId) #{exercise.exerciseName}
 
 						input#inputExerciseReps(type="integer", placeholder="Reps",name="exercisereps")
-						input#inputTargetTime(type="integer", placeholder="Time in minutes","name=targettime")
+						input#inputTargetTime(type="integer", placeholder="#{workout.targetTime}","name=targettime")
 						button#btnSubmit(type="submit") submit
 				
 			
