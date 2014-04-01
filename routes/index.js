@@ -13,6 +13,53 @@ exports.coachindex = function(req,res){
   console.log('in coach index')
 }
 
+exports.editathlete = function(req,res){
+  var athleteId = req.params.athleteId;
+  console.log('in editAthlete, athleteId = ', athleteId);
+  res.render('coachindex');
+};
+
+exports.editteam = function(req,res){
+  var teamId = req.params.teamId;
+  console.log('in editTam, teamId = ', teamId);
+
+  db
+  .authenticate()
+  .complete(function(err) {
+    if (!!err){
+      console.log('authentication error');
+      res.render('coachindex');
+
+    }
+    else {
+      model.Team
+        .find( {where: {teamId: teamId}})
+        .complete (function(err,team){
+          if (!!err) {
+            console.log('Error accssing team id = ', teamId);
+            res.render('coachindex');
+          }
+          else {
+            model.Athlete
+            .findAll( { where: {teamId: teamId}} )
+            .complete (function(err, athletes){
+              if (!!err){
+                console.log('error getting teams');
+                res.render('coachindex');
+              }
+              else {
+              res.render('editteam', {title: "Edit Team"
+                                          ,team: team
+                                          ,athletes: athletes})
+              }
+            })
+          }
+        })
+      }
+    })
+  };
+
+
 exports.editworkout = function(req,res){
 
   var workoutId = req.params.workoutId;
@@ -117,10 +164,10 @@ exports.add_mail = function(req, res) {
             .complete(function(err, athlete) {
               if (!!err) {
                 console.log('An error occurred while searching for uname:', err);
-                res.render('index', { title: 'Express'});
+                res.render('index', { title: 'Pocket Trainer'});
               } else if (!athlete) {
                 console.log('No user with the username ' + uname + ' has been found.');
-                res.render('index', { title: uname});
+                res.render('index', { title: 'Pocket Trainer'});
               } else {
 
 //TODO add error handling; for prototype implementation ensure dataset is clean 

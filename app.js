@@ -58,6 +58,13 @@ app.post('/addworkout', routes.addworkout);
 app.get('/editworkout/:workoutId', routes.editworkout);
 app.post('/editworkout/:workoutId', routes.editworkout);
 
+app.get('/editathlete/:athleteId', routes.editathlete);
+app.post('/editathlete/:athleteId', routes.editathlete);
+
+app.get('/editteam/:teamId', routes.editteam);
+app.post('/editteam/:teamId', routes.editteam);
+
+
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
 });
