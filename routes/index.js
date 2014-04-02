@@ -84,18 +84,26 @@ exports.editworkout = function(req,res){
               model.WorkExAssoc
                 .findAll( {where: {workoutId: workoutId}})
                 .complete(function(err,workexassocs){
-                  for (i = 0; i < _.size(workexassocs); i++){
-                    console.log(i,workexassocs[i].workoutId, workexassocs[i].exerciseId
-                      ,workexassocs[i].exerciseReps,workexassocs[i].exerciseOrder);
-            
-                  }
-                  res.render('editworkout', {title: "Edit Workout"
+                  var exerciseNames = [];
+
+                    model.Exercise
+                      .findAll()
+                      .complete (function(err,exercises){
+                        console.log(_.size(workexassocs));
+                        // need better way to do this.
+                        for (i = 0; i < _.size(workexassocs); i++){
+                          exerciseNames.push(exercises[workexassocs[i].exerciseId].exerciseName);
+                        } 
+                        console.log(exerciseNames);      
+                        res.render('editworkout', {title: "Edit Workout"
                                           ,workout: workout
+                                          ,names: exerciseNames
                                           ,elements: workexassocs})
-                })
-            }
-          })
-      }
+                      })
+                  })
+                }
+            })
+          }
     })
 }
 

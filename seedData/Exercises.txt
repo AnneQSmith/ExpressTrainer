@@ -9,5 +9,5 @@
 9|R|Rope Project|True|+1| Max 15 minutes each, fast changeover, one above your best level
 10|B|Bouldering Projects|True|2|Project # problems specified one level above your best level
 11|C|Windsprints|False|0|Sprint 30 seconds as fast as you can
-12|C|Burpees| You know what these are!
-13|C|Box Jumps|  Two-legged
+12|C|Burpees|False| 0| You know what these are!
+13|C|Box Jumps|False|0| Two-legged
