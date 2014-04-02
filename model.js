@@ -104,10 +104,17 @@ exports.Workout = Workout = sequelize.define('workout',{
     workoutName: Sequelize.STRING,
     workoutTheme: Sequelize.STRING,
     workoutDescription: Sequelize.TEXT,
-    workoutExercises: Sequelize.STRING,
-    exerciseReps: Sequelize.STRING,
     targetTime: Sequelize.INTEGER
   })
+
+
+exports.WorkExAssoc = WorkExAssoc = sequelize.define('workexassoc', {
+  workoutId: Sequelize.INTEGER,
+  exerciseId: Sequelize.INTEGER,
+  exerciseReps: Sequelize.INTEGER,
+  exerciseOrder: Sequelize.INTEGER
+})
+
 
 exports.WorkoutHistory = WorkoutHistory = sequelize.define('workouthistory',{
     athleteId: Sequelize.INTEGER,
@@ -125,6 +132,14 @@ exports.WorkoutSchedule = WorkoutSchedule = sequelize.define('workoutschedule',{
     workoutId: Sequelize.INTEGER,
     scheduledDate: Sequelize.DATE,
     coachNotes: Sequelize.TEXT
+})
+
+exports.PastWorkExAssoc = PastWorkExAssoc = sequelize.define('pastworkexassoc', {
+  athletId: Sequelize.INTEGER,
+  workoutId: Sequelize.INTEGER,
+  exerciseId: Sequelize.INTEGER,
+  exerciseRepsPlanned: Sequelize.INTEGER,
+  exerciseRepsComplete: Sequelize.INTEGER
 })
 
 exports.RouteGrade = RouteGrade = sequelize.define('routegrade', {

@@ -81,22 +81,22 @@ exports.editworkout = function(req,res){
               res.render('coachindex');
             }
             else{
-              var elements = workout.workoutExercises.split(',');
-              var reps = workout.exerciseReps.split(',');
-
-              console.log(elements, reps);
-
-              res.render('editworkout', {title: "Edit Workout"
+              model.WorkExAssoc
+                .findAll( {where: {workoutId: workoutId}})
+                .complete(function(err,workexassocs){
+                  for (i = 0; i < _.size(workexassocs); i++){
+                    console.log(i,workexassocs[i].workoutId, workexassocs[i].exerciseId
+                      ,workexassocs[i].exerciseReps,workexassocs[i].exerciseOrder);
+            
+                  }
+                  res.render('editworkout', {title: "Edit Workout"
                                           ,workout: workout
-                                          ,elements: elements
-                                          ,reps: reps})
+                                          ,elements: workexassocs})
+                })
             }
           })
       }
-
     })
-
-
 }
 
 

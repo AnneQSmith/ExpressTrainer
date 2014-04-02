@@ -17,15 +17,15 @@ db.authenticate().complete(function(err) {
       console.log('Unable to connect to the database:', err)
     } else {
       console.log('Connection has been established successfully in seed.js')
-// not checking for existence of record
-//        getAthletes();
-// // not checking for existence of record
-//        getCoaches();
-//        getExercises();
-//        getTeams();
-//        getWorkouts();
-       getWorkoutSchedules();
-      // getRouteGrades();
+
+        getAthletes();
+        getCoaches();
+        getExercises();
+        getTeams();
+        getWorkouts();
+        getWorkoutSchedules();
+        getRouteGrades();
+        getWorkoutExerciseAssociations();
     }
   });
 
@@ -138,9 +138,7 @@ function getWorkouts(){
       workoutName: splitline[2],
       workoutTheme: splitline[3],
       workoutDescription: splitline[4],
-      workoutExercises: splitline[5],
-      exerciseReps: splitline[6],
-      targetTime: parseInt(splitline[7])
+      targetTime: parseInt(splitline[5])
      })
 
    .complete(function(err) {
@@ -152,6 +150,31 @@ function getWorkouts(){
     })
  });
 }
+
+
+
+function getWorkoutExerciseAssociations(){
+  fs.readFileSync('./seedData/WorkoutExerciseAssociations.txt').toString().split('\n').forEach(function (line) { 
+    splitline = line.split("|");  
+    console.log(splitline);
+    model.WorkExAssoc
+     .create({
+      workoutId: parseInt(splitline[0]),
+      exerciseId: parseInt(splitline[1]),
+      exerciseReps: parseInt(splitline[2]),
+      exerciseOrder: parseInt(splitline[3])
+     })
+
+   .complete(function(err) {
+      if (!!err) {
+        console.log('The  '+splitline[1]+' instance has not been saved:', err)
+      } else {
+        console.log('We have a persisted  '+splitline[2]+' instance now')
+      }
+    })
+ });
+}
+
 function getAthletes(){
 
 fs.readFileSync('./seedData/Athletes.txt').toString().split('\n').forEach(function (line) { 
