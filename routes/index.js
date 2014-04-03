@@ -231,10 +231,40 @@ exports.see_workouts = function(req, res) {
 exports.see_aworkouts = function(req, res) {
   var aId = req.params.athleteId;
   var athleteName = req.params.athleteName;
-  console.log (req.body);
-  console.log (req.params);
   var workouttime = req.body.workouttime;
 
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+  today = mm+'/'+dd+'/'+yyyy;
+
+  var tomorrow = new Date(new Date().getTime() + 24 * 60 * 60 * 1000);
+  dd = tomorrow.getDate();
+  mm = tomorrow.getMonth()+1; //January is 0!
+  yyyy = tomorrow.getFullYear();
+  tomorrow = mm+'/'+dd+'/'+yyyy;
+
+// this is an unbelievably bad hack to get around the problem of specifying a date in Sequelize.  Direct queries to db work
+// with today's date but fail with sequelize.query.  Using an approximation workaround to move things forward.
+
+  var yesterday = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
+  dd = yesterday.getDate();
+  mm = yesterday.getMonth()+1; //January is 0!
+  yyyy = yesterday.getFullYear();
+  yesterday = mm+'/'+dd+'/'+yyyy;
+  console.log(yesterday,today,tomorrow);
+
+  //default to today 
+  var queryString = 'SELECT * from "workoutschedules" where "athleteId" = ? and "scheduledDate" > ? and "scheduledDate" < ?';
+
+  if (workouttime === 'future'){
+    queryString = 'SELECT * from "workoutschedules" where "athleteId" = ? and "scheduledDate" > ?';
+  }
+  else if (workouttime === 'past'){
+    queryString = 'SELECT * from "workoutschedules" where "athleteId" = ? and "scheduledDate" < ?';
+  }
+ 
   db.
     authenticate()
     .complete(function(err) {
@@ -242,8 +272,9 @@ exports.see_aworkouts = function(req, res) {
         console.log('oops authentication error', err)
       }
       else {
-        model.WorkoutSchedule
-          .findAll({ where: { athleteId: aId} })
+        sequelize.query(queryString,null,
+          { raw: true }, [aId,today, tomorrow])
+ 
           .complete(function(err,workoutschedules){
               console.log('workout schedules', workoutschedules);
               var dates = []

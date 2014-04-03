@@ -10,6 +10,8 @@ var express = require('express')
   , path = require('path')
   , model = require('./model.js')
   , Sequelize = require('sequelize')
+ // not investing time to get flash message working for now.
+ // , flash = require('connect-flash')
   , fs = require("fs");
 
 var app = express();
@@ -23,8 +25,11 @@ app.configure(function(){
   app.use(express.logger('dev'));
  // app.use(express.bodyParser());
   app.use(express.urlencoded());
+  app.use(express.cookieParser('keyboard cat'));
+  app.use(express.session({ cookie: { maxAge: 60000 }}));
   app.use(express.methodOverride());
   app.use(app.router);
+  app.use(flash());
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
