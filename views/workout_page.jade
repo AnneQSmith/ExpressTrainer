@@ -29,9 +29,18 @@ html(lang="en")
 			div(class="jumbotron")
 				h3 #{aname}, Check out your workouts
 					each workout,i in workouts
-						h6 #{workout.workoutId}, #{wd[i]}: #{workout.coachNotes}
+						h6 #{wd[i]}: #{workout.coachNotes}
 
-			hr
+			div(class="jumbotron")
+				h4 Track Workout Progress
+
+				form(name="trackworkout", method="post", action="/logaworkout/#{aId}/#{workouts[0].workoutId}")
+					each exerciseName,i in exerciseNames
+						label  #{exerciseName}  (#{exerciseReps[i]})
+						input#ItemInput(type="integer", placeholder = "#{exerciseReps[i]}", name="#{exerciseName}|#{exerciseIds[i]}")
+					label Enter comments and submit when you are done
+					input#ItemInput(type="text", placeholder = "editorial comments", name = "workoutComments")
+					button#btnSubmit(type="submit") submit			
 
 			hr
 

@@ -157,8 +157,8 @@ exports.add_coachmail = function(req, res) {
   };
 
 exports.add_mail = function(req, res) {
-	var email = (req.body.email).substr(0,256);
-    console.log ('email enterd = '+email);
+	 console.log('in add_mail'+req.body);
+    var email = (req.body.email).substr(0,256);
     db = model.sequelize;
     uname = email;
     db
@@ -217,10 +217,6 @@ exports.add_mail = function(req, res) {
   };
 
 
-//trying to get button from athlete page to redirect here, so far without success
-// goal is to pass parameters from templates to various callbacks.  When this works a list
-// of workouts for a specific athlete can be fetched/displayed
-
 exports.see_workouts = function(req, res) {
   var athleteId = req.body.workoutwho;
   console.log ('In see_workouts trying to get an id  '+ athleteId);   
@@ -273,7 +269,7 @@ exports.see_aworkouts = function(req, res) {
       }
       else {
         sequelize.query(queryString,null,
-          { raw: true }, [aId,today, tomorrow])
+          { raw: true }, [aId, today, tomorrow])
  
           .complete(function(err,workoutschedules){
               console.log('workout schedules', workoutschedules);
@@ -282,7 +278,39 @@ exports.see_aworkouts = function(req, res) {
                 dates.push(workoutschedules[i].scheduledDate.toDateString());
                 console.log(i,dates[i]);
               }
-             res.render('workout_page', {title: 'Workouts', aname: athleteName, workouts: workoutschedules, wd: dates});
+
+
+              model.WorkExAssoc
+                .findAll( {where: {workoutId: workoutschedules[0].workoutId}})
+                .complete(function(err,workexassocs){
+                  var exerciseNames = [];
+                  var exerciseReps = [];
+                  var exerciseIds = [];
+
+                    model.Exercise
+                      .findAll()
+                      .complete (function(err,exercises){
+                        console.log(_.size(workexassocs));
+                        // need better way to do this.
+                        for (i = 0; i < _.size(workexassocs); i++){
+                          exerciseNames.push(exercises[workexassocs[i].exerciseId].exerciseName);
+                          exerciseReps.push(workexassocs[i].exerciseReps);
+                          exerciseIds.push(workexassocs[i].exerciseId);
+                        } 
+                        console.log(exerciseNames, exerciseReps);  
+
+                        res.render('workout_page', {title: 'Workouts'
+                                              , aname: athleteName
+                                              , workouts: workoutschedules
+                                              , exerciseNames: exerciseNames
+                                              , exerciseIds: exerciseIds
+                                              , exerciseReps: exerciseReps
+                                              , aId: aId
+                                              , wd: dates});    
+
+                      })
+                  })
+
           })
       }
     })
@@ -290,6 +318,14 @@ exports.see_aworkouts = function(req, res) {
 
     
   };
+
+exports.logaworkout = function(req, res) {
+  var aId = req.params.athleteId;
+  var wId = req.params.workoutId;
+  console.log(req.params, req.body);
+  res.redirect('/');
+
+}
 
 //code to demonstrate looping construct in Jade
 exports.userlist = function(req, res) {
@@ -378,52 +414,6 @@ exports.addworkout = function(req,res) {
     res.redirect('newworkout');
 
  };
-
-
-
-//   findThatAthlete('kaherson@yahoo.com');
-//     uname = email;
-//     db
-//       .authenticate()
-//       .complete(function(err) {
-//          if (!!err) {
-//            console.log('An error occurred while authenticating:', err)
-//          } else {
-           
-//            model.Athlete
-//             .find({ where: { username: uname} })
-//             .complete(function(err, athlete) {
-//               if (!!err) {
-//                 console.log('An error occurred while searching for uname:', err)
-//               } else if (!athlete) {
-//                 console.log('No user with the username ' + uname + ' has been found.')
-//                 res.send('No user with the username ' + uname + ' has been found; please go back.')
-//               } else {
-//                 db
-//                     .query('SELECT * FROM teams where "teamId" = '+ athlete.teamId +'', Team)
-//                     .success(function(team){
-
-//                     db.query('SELECT * FROM coaches where "coachId" = '+team[0].coachId+'', Coach)
-//                       .success(function(coach){
-
-//                         console.log('Hello ' + coach.spokenName + '!');
-//                         res.render('athlete_page', {title: 'Express'
-//                                                 ,current_athlete: athlete.spokenName
-//                                                 ,tn: team[0].teamName
-//                                                 ,cn: coach[0].spokenName
-//                                                 ,goal: athlete.goal
-//                                                 ,gd: athlete.goalDate.toDateString()
-//                                                 ,bp: athlete.boulderPar
-//                                                 ,bb: athlete.boulderBest
-//                                                 ,sp: athlete.routePar
-//                                                 ,sb: athlete.routeBest});
-//                         })
-//                       })
-//               }
-//             })
-//          }
-//         })
-//};
 
 
 

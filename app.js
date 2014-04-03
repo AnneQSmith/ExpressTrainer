@@ -41,6 +41,8 @@ app.get('/', routes.index);
 console.log("we are in app after app.get");
 db = model.sequelize;
 app.post('/add_mail', routes.add_mail);
+app.get('/add_mail', routes.add_mail);
+
 app.get('/coach', routes.coachindex);
 app.post('/add_coachmail',routes.add_coachmail);
 console.log("we are in app after add_coachmail");
@@ -59,6 +61,9 @@ app.get('/userlist', routes.userlist);
 
 app.get('/newworkout', routes.newworkout);
 app.post('/addworkout', routes.addworkout);
+
+app.post('/logaworkout/:athleteId/:workoutId', routes.logaworkout);
+app.get('/logaworkout/:athleteId/:workoutId', routes.logaworkout);
 
 app.get('/editworkout/:workoutId', routes.editworkout);
 app.post('/editworkout/:workoutId', routes.editworkout);
