@@ -1,1 +1,1 @@
-web: node seed.js
+web: node app.js
