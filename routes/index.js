@@ -158,7 +158,7 @@ exports.add_coachmail = function(req, res) {
 
 exports.add_mail = function(req, res) {
 	 console.log('in add_mail'+req.body);
-    var email = (req.body.email).substr(0,256);
+    var email = (req.body.email).substr(0,256).toLowerCase();
     db = model.sequelize;
     uname = email;
     db
