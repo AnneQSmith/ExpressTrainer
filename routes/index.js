@@ -110,7 +110,7 @@ exports.editworkout = function(req,res){
 
 
 exports.add_coachmail = function(req, res) {
-  var email = (req.body.email).substr(0,256);
+  var email = (req.body.email).substr(0,256).toLowerCase();
     console.log ('email enterd = '+email);
     db = model.sequelize;
     uname = email;
