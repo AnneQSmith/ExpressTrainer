@@ -11,6 +11,7 @@ html(lang="en")
 		script(src="http://code.jquery.com/jquery-1.9.1.min.js")
 		link(href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css", rel="stylesheet")
 		script(src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js")
+		script(src="/javascripts/exerciseprogress.js")
 		link(rel='stylesheet', href='/stylesheets/home.css')
 	body
 		div(class="bg")
@@ -37,7 +38,7 @@ html(lang="en")
 				form(name="trackworkout", method="post", action="/logaworkout/#{aId}/#{workouts[0].workoutId}")
 					each exerciseName,i in exerciseNames
 						label  #{exerciseName}  (#{exerciseReps[i]})
-						input#ItemInput(type="integer", placeholder = "#{exerciseReps[i]}", name="#{exerciseName}|#{exerciseIds[i]}")
+						input(class="ExerciseProgress", id="ItemInput#{i}",type="integer", placeholder = "#{exerciseReps[i]}", name="#{exerciseName}|#{exerciseIds[i]}")
 					label Enter comments and submit when you are done
 					input#ItemInput(type="text", placeholder = "editorial comments", name = "workoutComments")
 					button#btnSubmit(type="submit") submit			

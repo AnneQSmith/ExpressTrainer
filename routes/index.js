@@ -388,7 +388,7 @@ exports.addworkout = function(req,res) {
  //TODO  Major error cheking!!!
 //Immediate -- there is a bug in exerciseReps
       console.log(workoutId, createdBy, workoutName, workoutTheme, 
-        workoutDescription,workoutExercises,exerciseReps, targetTime);
+        workoutDescription,targetTime);
 
       // model.Workout
       //   .create ({
@@ -397,8 +397,6 @@ exports.addworkout = function(req,res) {
       //     workoutName: workoutName,
       //     workoutTheme: workoutTheme,
       //     workoutDescription: workoutDescription,
-      //     workoutExercises: workoutExercises,
-      //     exerciseReps: exerciseReps,
       //     targetTime: targetTime
       //   })
       //   .complete(function(err) {
