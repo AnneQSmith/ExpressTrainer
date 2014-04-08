@@ -38,7 +38,8 @@ html(lang="en")
 				form(name="trackworkout", method="post", action="/logaworkout/#{aId}/#{workouts[0].workoutId}")
 					each exerciseName,i in exerciseNames
 						label  #{exerciseName}  (#{exerciseReps[i]})
-						input(class="ExerciseProgress", id="ItemInput#{i}",type="integer", placeholder = "#{exerciseReps[i]}", name="#{exerciseName}|#{exerciseIds[i]}")
+						input(class="ExerciseProgress", id="ItemInput#{i}",type="integer", placeholder = "#{exerciseReps[i]}", name="#{exerciseName}|#{exerciseIds[i]}", currentvalue=0)
+						button(class="ToggleProgress", id="ItemIncrement#{i}") +1
 					label Enter comments and submit when you are done
 					input#ItemInput(type="text", placeholder = "editorial comments", name = "workoutComments")
 					button#btnSubmit(type="submit") submit			
