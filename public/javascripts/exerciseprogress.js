@@ -33,7 +33,7 @@ $(document).ready(function() {
     }
     else {
         $(this).css("border-color", "#BA3100");    
-        $(this).css("background-color", "#C96A6A");       
+        $(this).css("background-color", "#CCC");       
     }
 
     console.log('current entry= '+ progress+ ' target = '+ target);
