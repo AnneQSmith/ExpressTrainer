@@ -9,5 +9,7 @@ A "Coach" role.  A Coach can login, view/update/create teams, view/update/create
 
 An "Athlete" role.  An Athlete can login, view past/current/future workouts, and log progress of today's workout on-the-fly.
 
+4/14/2014 -- working on redeploying to Heroku; seems to be broken for now.
+
 
 
